@@ -8,7 +8,7 @@ import org.junit.runners.model.Statement;
 
 import com.agarwal.ashish.qna.BoilerplateApplication;
 import com.agarwal.ashish.qna.data.DataManager;
-import com.agarwal.ashish.qna.test.common.injection.component.DaggerTestComponent;
+// import com.agarwal.ashish.qna.test.common.injection.component.DaggerTestComponent;
 import com.agarwal.ashish.qna.test.common.injection.component.TestComponent;
 import com.agarwal.ashish.qna.test.common.injection.module.ApplicationTestModule;
 
@@ -27,9 +27,10 @@ public class TestComponentRule implements TestRule {
     public TestComponentRule(Context context) {
         mContext = context;
         BoilerplateApplication application = BoilerplateApplication.get(context);
-        mTestComponent = DaggerTestComponent.builder()
-                .applicationTestModule(new ApplicationTestModule(application))
-                .build();
+        mTestComponent = null;
+//        DaggerTestComponent.builder()
+//                .applicationTestModule(new ApplicationTestModule(application))
+//                .build();
     }
 
     public Context getContext() {
