@@ -11,7 +11,7 @@ import com.agarwal.ashish.qna.injection.component.ApplicationComponent;
 import com.agarwal.ashish.qna.injection.component.DaggerApplicationComponent;
 import com.agarwal.ashish.qna.injection.module.ApplicationModule;
 
-public class BoilerplateApplication extends Application  {
+public class QnaApplication extends Application  {
 
     ApplicationComponent mApplicationComponent;
 
@@ -25,8 +25,8 @@ public class BoilerplateApplication extends Application  {
         }
     }
 
-    public static BoilerplateApplication get(Context context) {
-        return (BoilerplateApplication) context.getApplicationContext();
+    public static QnaApplication get(Context context) {
+        return (QnaApplication) context.getApplicationContext();
     }
 
     public ApplicationComponent getComponent() {

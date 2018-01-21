@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import java.util.concurrent.atomic.AtomicLong;
 
 import timber.log.Timber;
-import com.agarwal.ashish.qna.BoilerplateApplication;
+import com.agarwal.ashish.qna.QnaApplication;
 import com.agarwal.ashish.qna.injection.component.ActivityComponent;
 import com.agarwal.ashish.qna.injection.component.ConfigPersistentComponent;
 import com.agarwal.ashish.qna.injection.component.DaggerConfigPersistentComponent;
@@ -42,7 +42,7 @@ public class BaseActivity extends AppCompatActivity {
         if (configPersistentComponent == null) {
             Timber.i("Creating new ConfigPersistentComponent id=%d", mActivityId);
             configPersistentComponent = DaggerConfigPersistentComponent.builder()
-                    .applicationComponent(BoilerplateApplication.get(this).getComponent())
+                    .applicationComponent(QnaApplication.get(this).getComponent())
                     .build();
             sComponentsMap.put(mActivityId, configPersistentComponent);
         }

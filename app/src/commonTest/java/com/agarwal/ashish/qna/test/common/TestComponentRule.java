@@ -6,7 +6,7 @@ import org.junit.rules.TestRule;
 import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
 
-import com.agarwal.ashish.qna.BoilerplateApplication;
+import com.agarwal.ashish.qna.QnaApplication;
 import com.agarwal.ashish.qna.data.DataManager;
 // import com.agarwal.ashish.qna.test.common.injection.component.DaggerTestComponent;
 import com.agarwal.ashish.qna.test.common.injection.component.TestComponent;
@@ -26,7 +26,7 @@ public class TestComponentRule implements TestRule {
 
     public TestComponentRule(Context context) {
         mContext = context;
-        BoilerplateApplication application = BoilerplateApplication.get(context);
+        QnaApplication application = QnaApplication.get(context);
         mTestComponent = null;
 //        DaggerTestComponent.builder()
 //                .applicationTestModule(new ApplicationTestModule(application))
@@ -46,7 +46,7 @@ public class TestComponentRule implements TestRule {
         return new Statement() {
             @Override
             public void evaluate() throws Throwable {
-                BoilerplateApplication application = BoilerplateApplication.get(mContext);
+                QnaApplication application = QnaApplication.get(mContext);
                 application.setComponent(mTestComponent);
                 base.evaluate();
                 application.setComponent(null);

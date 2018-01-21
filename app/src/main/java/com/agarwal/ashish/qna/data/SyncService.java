@@ -14,7 +14,7 @@ import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
-import com.agarwal.ashish.qna.BoilerplateApplication;
+import com.agarwal.ashish.qna.QnaApplication;
 import com.agarwal.ashish.qna.data.model.Ribot;
 import com.agarwal.ashish.qna.util.AndroidComponentUtil;
 import com.agarwal.ashish.qna.util.NetworkUtil;
@@ -36,7 +36,7 @@ public class SyncService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        BoilerplateApplication.get(this).getComponent().inject(this);
+        QnaApplication.get(this).getComponent().inject(this);
     }
 
     @Override
