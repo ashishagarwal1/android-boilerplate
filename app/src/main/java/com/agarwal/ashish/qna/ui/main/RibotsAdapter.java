@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -16,6 +17,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.agarwal.ashish.qna.R;
 import com.agarwal.ashish.qna.data.model.Ribot;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 public class RibotsAdapter extends RecyclerView.Adapter<RibotsAdapter.RibotViewHolder> {
 
@@ -40,6 +43,11 @@ public class RibotsAdapter extends RecyclerView.Adapter<RibotsAdapter.RibotViewH
     @Override
     public void onBindViewHolder(final RibotViewHolder holder, int position) {
         Ribot ribot = mRibots.get(position);
+        Glide.with(holder.hexColorView.getContext())
+                .load(ribot.profile().avatar())
+                .into(holder.hexColorView);
+
+
         holder.hexColorView.setBackgroundColor(Color.parseColor(ribot.profile().hexColor()));
         holder.nameTextView.setText(String.format("%s %s",
                 ribot.profile().name().first(), ribot.profile().name().last()));
@@ -53,7 +61,7 @@ public class RibotsAdapter extends RecyclerView.Adapter<RibotsAdapter.RibotViewH
 
     class RibotViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.view_hex_color) View hexColorView;
+        @BindView(R.id.view_hex_color) ImageView hexColorView;
         @BindView(R.id.text_name) TextView nameTextView;
         @BindView(R.id.text_email) TextView emailTextView;
 

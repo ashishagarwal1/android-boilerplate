@@ -4,8 +4,15 @@
     package="com.agarwal.ashish.qna">
 
     <application
-        tools:replace="android:name"
-        android:name=".QnaDbAccessApplication"/>
+        android:name=".QnaDbAccessApplication"
+        tools:replace="android:name">
+        <meta-data
+            android:name="com.agarwal.ashish.qna.StethoOkHttpGlideModule"
+            android:value="GlideModule"  />
+
+        <meta-data android:name="com.bumptech.glide.integration.okhttp3.OkHttpGlideModule" tools:node="remove" />
+
+    </application>
 
     <!-- Used by instrumentation tests only. Do not include in live build ! -->
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />

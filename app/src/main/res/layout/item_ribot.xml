@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:padding="10dp">
 
-        <View
+        <ImageView
             android:id="@+id/view_hex_color"
             android:layout_width="50dp"
             android:layout_height="50dp"
