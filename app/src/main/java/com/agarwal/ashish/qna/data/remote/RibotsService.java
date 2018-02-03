@@ -1,8 +1,8 @@
 package com.agarwal.ashish.qna.data.remote;
 
+import com.agarwal.ashish.qna.OkHttpClientProvider;
+import com.agarwal.ashish.qna.room.constants.AppConstants;
 import com.agarwal.ashish.qna.room.model.Ribot;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import java.util.List;
 
@@ -14,8 +14,6 @@ import retrofit2.http.GET;
 
 public interface RibotsService {
 
-    String ENDPOINT = "https://api.ribot.io/";
-
     @GET("ribots")
     Observable<List<Ribot>> getRibots();
 
@@ -23,15 +21,14 @@ public interface RibotsService {
     class Creator {
 
         public static RibotsService newRibotsService() {
-            Gson gson = new GsonBuilder()
-                  //  .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-                    .create();
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl(RibotsService.ENDPOINT)
-                    .addConverterFactory(GsonConverterFactory.create(gson))
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .baseUrl(AppConstants.BASE_URL)
+                    .client(new OkHttpClientProvider().getOkHttpClient())
                     .build();
             return retrofit.create(RibotsService.class);
         }
+
     }
 }
