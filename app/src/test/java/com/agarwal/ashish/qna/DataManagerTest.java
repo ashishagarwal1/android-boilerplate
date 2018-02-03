@@ -7,6 +7,7 @@ import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -15,8 +16,9 @@ import io.reactivex.observers.TestObserver;
 import com.agarwal.ashish.qna.data.DataManager;
 import com.agarwal.ashish.qna.data.local.DatabaseHelper;
 import com.agarwal.ashish.qna.data.local.PreferencesHelper;
-import com.agarwal.ashish.qna.data.model.Ribot;
 import com.agarwal.ashish.qna.data.remote.RibotsService;
+import com.agarwal.ashish.qna.room.entities.RibotProfile;
+import com.agarwal.ashish.qna.room.model.Ribot;
 import com.agarwal.ashish.qna.test.common.TestDataFactory;
 
 import static org.mockito.Mockito.never;
@@ -47,26 +49,37 @@ public class DataManagerTest {
 
     @Test
     public void syncRibotsEmitsValues() {
-        List<Ribot> ribots = Arrays.asList(TestDataFactory.makeRibot("r1"),
-                TestDataFactory.makeRibot("r2"));
+        List<Ribot> ribots = Arrays.asList(TestDataFactory.makeRibotProfile("r1"),
+                TestDataFactory.makeRibotProfile("r2"));
         stubSyncRibotsHelperCalls(ribots);
 
-        TestObserver<Ribot> result = new TestObserver<>();
+
+        List<RibotProfile> list = new ArrayList<>();
+        for (Ribot ribot : ribots) {
+            list.add(ribot.getRibotProfile());
+        }
+
+        TestObserver<RibotProfile> result = new TestObserver<>();
         mDataManager.syncRibots().subscribe(result);
         result.assertNoErrors();
-        result.assertValueSequence(ribots);
+        result.assertValueSequence(list);
     }
 
     @Test
     public void syncRibotsCallsApiAndDatabase() {
-        List<Ribot> ribots = Arrays.asList(TestDataFactory.makeRibot("r1"),
-                TestDataFactory.makeRibot("r2"));
+        List<Ribot> ribots = Arrays.asList(TestDataFactory.makeRibotProfile("r1"),
+                TestDataFactory.makeRibotProfile("r2"));
         stubSyncRibotsHelperCalls(ribots);
+
+        List<RibotProfile> list = new ArrayList<>();
+        for (Ribot ribot : ribots) {
+            list.add(ribot.getRibotProfile());
+        }
 
         mDataManager.syncRibots().subscribe();
         // Verify right calls to helper methods
         verify(mMockRibotsService).getRibots();
-        verify(mMockDatabaseHelper).setRibots(ribots);
+        verify(mMockDatabaseHelper).setRibots(list);
     }
 
     @Test
@@ -74,18 +87,22 @@ public class DataManagerTest {
         when(mMockRibotsService.getRibots())
                 .thenReturn(Observable.<List<Ribot>>error(new RuntimeException()));
 
-        mDataManager.syncRibots().subscribe(new TestObserver<Ribot>());
+        mDataManager.syncRibots().subscribe(new TestObserver<RibotProfile>());
         // Verify right calls to helper methods
         verify(mMockRibotsService).getRibots();
-        verify(mMockDatabaseHelper, never()).setRibots(ArgumentMatchers.<Ribot>anyList());
+        verify(mMockDatabaseHelper, never()).setRibots(ArgumentMatchers.<RibotProfile>anyList());
     }
 
     private void stubSyncRibotsHelperCalls(List<Ribot> ribots) {
         // Stub calls to the ribot service and database helper.
         when(mMockRibotsService.getRibots())
                 .thenReturn(Observable.just(ribots));
-        when(mMockDatabaseHelper.setRibots(ribots))
-                .thenReturn(Observable.fromIterable(ribots));
+
+        List<RibotProfile> list = new ArrayList<>();
+        for (Ribot ribot : ribots) {
+            list.add(ribot.getRibotProfile());
+        }
+        when(mMockDatabaseHelper.setRibots(list)).thenReturn(Observable.fromIterable(list));
     }
 
 }

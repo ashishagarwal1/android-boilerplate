@@ -16,21 +16,20 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.agarwal.ashish.qna.R;
-import com.agarwal.ashish.qna.data.model.Ribot;
+import com.agarwal.ashish.qna.room.entities.RibotProfile;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 public class RibotsAdapter extends RecyclerView.Adapter<RibotsAdapter.RibotViewHolder> {
 
-    private List<Ribot> mRibots;
+    private List<RibotProfile> mRibotProfiles;
 
     @Inject
     public RibotsAdapter() {
-        mRibots = new ArrayList<>();
+        mRibotProfiles = new ArrayList<>();
     }
 
-    public void setRibots(List<Ribot> ribots) {
-        mRibots = ribots;
+    public void setRibots(List<RibotProfile> ribotProfiles) {
+        mRibotProfiles = ribotProfiles;
     }
 
     @Override
@@ -42,21 +41,21 @@ public class RibotsAdapter extends RecyclerView.Adapter<RibotsAdapter.RibotViewH
 
     @Override
     public void onBindViewHolder(final RibotViewHolder holder, int position) {
-        Ribot ribot = mRibots.get(position);
+        RibotProfile ribotProfile = mRibotProfiles.get(position);
         Glide.with(holder.hexColorView.getContext())
-                .load(ribot.profile().avatar())
+                .load(ribotProfile.getAvatar())
                 .into(holder.hexColorView);
 
 
-        holder.hexColorView.setBackgroundColor(Color.parseColor(ribot.profile().hexColor()));
+        holder.hexColorView.setBackgroundColor(Color.parseColor(ribotProfile.getHexColor()));
         holder.nameTextView.setText(String.format("%s %s",
-                ribot.profile().name().first(), ribot.profile().name().last()));
-        holder.emailTextView.setText(ribot.profile().email());
+                ribotProfile.getName().getFirst(), ribotProfile.getName().getLast()));
+        holder.emailTextView.setText(ribotProfile.getEmail());
     }
 
     @Override
     public int getItemCount() {
-        return mRibots.size();
+        return mRibotProfiles.size();
     }
 
     class RibotViewHolder extends RecyclerView.ViewHolder {

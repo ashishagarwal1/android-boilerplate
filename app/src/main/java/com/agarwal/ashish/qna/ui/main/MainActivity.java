@@ -16,7 +16,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.agarwal.ashish.qna.R;
 import com.agarwal.ashish.qna.data.SyncService;
-import com.agarwal.ashish.qna.data.model.Ribot;
+import com.agarwal.ashish.qna.room.entities.RibotProfile;
 import com.agarwal.ashish.qna.ui.base.BaseActivity;
 import com.agarwal.ashish.qna.util.DialogFactory;
 
@@ -68,8 +68,8 @@ public class MainActivity extends BaseActivity implements MainMvpView {
     /***** MVP View methods implementation *****/
 
     @Override
-    public void showRibots(List<Ribot> ribots) {
-        mRibotsAdapter.setRibots(ribots);
+    public void showRibots(List<RibotProfile> ribotProfiles) {
+        mRibotsAdapter.setRibots(ribotProfiles);
         mRibotsAdapter.notifyDataSetChanged();
     }
 
@@ -81,7 +81,7 @@ public class MainActivity extends BaseActivity implements MainMvpView {
 
     @Override
     public void showRibotsEmpty() {
-        mRibotsAdapter.setRibots(Collections.<Ribot>emptyList());
+        mRibotsAdapter.setRibots(Collections.<RibotProfile>emptyList());
         mRibotsAdapter.notifyDataSetChanged();
         Toast.makeText(this, R.string.empty_ribots, Toast.LENGTH_LONG).show();
     }

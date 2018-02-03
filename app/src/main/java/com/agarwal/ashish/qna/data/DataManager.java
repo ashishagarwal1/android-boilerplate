@@ -6,12 +6,10 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import io.reactivex.Observable;
-import io.reactivex.ObservableSource;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.functions.Function;
+
 import com.agarwal.ashish.qna.data.local.DatabaseHelper;
 import com.agarwal.ashish.qna.data.local.PreferencesHelper;
-import com.agarwal.ashish.qna.data.model.Ribot;
+import com.agarwal.ashish.qna.room.entities.RibotProfile;
 import com.agarwal.ashish.qna.data.remote.RibotsService;
 
 @Singleton
@@ -33,18 +31,17 @@ public class DataManager {
         return mPreferencesHelper;
     }
 
-    public Observable<Ribot> syncRibots() {
+    public Observable<RibotProfile> syncRibots() {
         return mRibotsService.getRibots()
-                .concatMap(new Function<List<Ribot>, ObservableSource<? extends Ribot>>() {
-                    @Override
-                    public ObservableSource<? extends Ribot> apply(@NonNull List<Ribot> ribots)
-                            throws Exception {
-                        return mDatabaseHelper.setRibots(ribots);
-                    }
-                });
+                .flatMap(list ->
+                        Observable.fromIterable(list)
+                                .map(item -> item.getRibotProfile())
+                                .toList()
+                                .toObservable())
+                .concatMap(ribotNS -> mDatabaseHelper.setRibots(ribotNS));
     }
 
-    public Observable<List<Ribot>> getRibots() {
+    public Observable<List<RibotProfile>> getRibots() {
         return mDatabaseHelper.getRibots().distinct();
     }
 

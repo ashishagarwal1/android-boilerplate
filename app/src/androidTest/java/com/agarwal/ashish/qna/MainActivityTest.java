@@ -15,7 +15,8 @@ import org.junit.runner.RunWith;
 import java.util.List;
 
 import io.reactivex.Observable;
-import com.agarwal.ashish.qna.data.model.Ribot;
+
+import com.agarwal.ashish.qna.room.entities.RibotProfile;
 import com.agarwal.ashish.qna.test.common.TestComponentRule;
 import com.agarwal.ashish.qna.test.common.TestDataFactory;
 import com.agarwal.ashish.qna.ui.main.MainActivity;
@@ -51,21 +52,21 @@ public class MainActivityTest {
 
     @Test
     public void listOfRibotsShows() {
-        List<Ribot> testDataRibots = TestDataFactory.makeListRibots(20);
+        List<RibotProfile> testDataRibotProfiles = TestDataFactory.makeListRibots(20);
         when(component.getMockDataManager().getRibots())
-                .thenReturn(Observable.just(testDataRibots));
+                .thenReturn(Observable.just(testDataRibotProfiles));
 
         main.launchActivity(null);
 
         int position = 0;
-        for (Ribot ribot : testDataRibots) {
+        for (RibotProfile ribotProfile : testDataRibotProfiles) {
             onView(withId(R.id.recycler_view))
                     .perform(RecyclerViewActions.scrollToPosition(position));
-            String name = String.format("%s %s", ribot.profile().name().first(),
-                    ribot.profile().name().last());
+            String name = String.format("%s %s", ribotProfile.getName().getFirst(),
+                    ribotProfile.getName().getLast());
             onView(withText(name))
                     .check(matches(isDisplayed()));
-            onView(withText(ribot.profile().email()))
+            onView(withText(ribotProfile.getEmail()))
                     .check(matches(isDisplayed()));
             position++;
         }

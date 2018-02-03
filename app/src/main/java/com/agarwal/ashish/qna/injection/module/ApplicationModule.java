@@ -7,6 +7,8 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+
+import com.agarwal.ashish.qna.room.database.AppDatabase;
 import com.agarwal.ashish.qna.data.remote.RibotsService;
 import com.agarwal.ashish.qna.injection.ApplicationContext;
 
@@ -36,6 +38,12 @@ public class ApplicationModule {
     @Singleton
     RibotsService provideRibotsService() {
         return RibotsService.Creator.newRibotsService();
+    }
+
+    @Provides
+    @Singleton
+    AppDatabase provideDatabase() {
+        return AppDatabase.getAppDatabase(mApplication);
     }
 
 }

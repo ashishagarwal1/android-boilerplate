@@ -15,7 +15,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 import com.agarwal.ashish.qna.QnaApplication;
-import com.agarwal.ashish.qna.data.model.Ribot;
+import com.agarwal.ashish.qna.room.entities.RibotProfile;
 import com.agarwal.ashish.qna.util.AndroidComponentUtil;
 import com.agarwal.ashish.qna.util.NetworkUtil;
 import com.agarwal.ashish.qna.util.RxUtil;
@@ -53,14 +53,14 @@ public class SyncService extends Service {
         RxUtil.dispose(mDisposable);
         mDataManager.syncRibots()
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<Ribot>() {
+                .subscribe(new Observer<RibotProfile>() {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
                         mDisposable = d;
                     }
 
                     @Override
-                    public void onNext(@NonNull Ribot ribot) {
+                    public void onNext(@NonNull RibotProfile ribotProfile) {
                     }
 
                     @Override

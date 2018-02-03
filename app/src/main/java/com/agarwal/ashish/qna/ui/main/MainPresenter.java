@@ -11,7 +11,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 import com.agarwal.ashish.qna.data.DataManager;
-import com.agarwal.ashish.qna.data.model.Ribot;
+import com.agarwal.ashish.qna.room.entities.RibotProfile;
 import com.agarwal.ashish.qna.injection.ConfigPersistent;
 import com.agarwal.ashish.qna.ui.base.BasePresenter;
 import com.agarwal.ashish.qna.util.RxUtil;
@@ -44,18 +44,18 @@ public class MainPresenter extends BasePresenter<MainMvpView> {
         mDataManager.getRibots()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<List<Ribot>>() {
+                .subscribe(new Observer<List<RibotProfile>>() {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
                         mDisposable = d;
                     }
 
                     @Override
-                    public void onNext(@NonNull List<Ribot> ribots) {
-                        if (ribots.isEmpty()) {
+                    public void onNext(@NonNull List<RibotProfile> ribotProfiles) {
+                        if (ribotProfiles.isEmpty()) {
                             getMvpView().showRibotsEmpty();
                         } else {
-                            getMvpView().showRibots(ribots);
+                            getMvpView().showRibots(ribotProfiles);
                         }
                     }
 

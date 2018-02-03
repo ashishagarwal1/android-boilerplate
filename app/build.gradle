@@ -16,7 +16,6 @@ android {
         versionCode 1000
         // Major -> Millions, Minor -> Thousands, Bugfix -> Hundreds. E.g 1.3.72 == 1,003,072
         versionName '0.1.0'
-
         javaCompileOptions {
             annotationProcessorOptions {
                 includeCompileClasspath true
@@ -59,6 +58,7 @@ android {
             debuggable true
         }
         dbAccess {
+            testCoverageEnabled false
             versionNameSuffix " dbAccess"
             debuggable true
             signingConfig signingConfigs.debug
@@ -78,6 +78,10 @@ android {
     //Needed because of this https://github.com/square/okio/issues/58
     lintOptions {
         warning 'InvalidPackage'
+    }
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
     }
 }
 
@@ -100,6 +104,7 @@ dependencies {
     final BUTTERKNIFE_VERSION = '8.4.0'
     final AUTO_VALUE_VERSION = '1.3'
     final AUTO_VALUE_GSON_VERSION = '0.4.2'
+    final ARCH_ROOM_VERSION = '1.1.0-alpha1'
 
     def daggerCompiler = "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
     def jUnit = "junit:junit:4.12"
@@ -111,6 +116,12 @@ dependencies {
     compile "com.android.support:recyclerview-v7:$SUPPORT_LIBRARY_VERSION"
     compile "com.android.support:cardview-v7:$SUPPORT_LIBRARY_VERSION"
     compile "com.android.support:support-annotations:$SUPPORT_LIBRARY_VERSION"
+
+
+    compile "android.arch.persistence.room:runtime:$ARCH_ROOM_VERSION"
+    annotationProcessor "android.arch.persistence.room:compiler:$ARCH_ROOM_VERSION"
+
+
     dbAccessCompile 'com.facebook.stetho:stetho:1.5.0'
     dbAccessCompile 'com.facebook.stetho:stetho-okhttp3:1.5.0'
     compile('com.squareup.sqlbrite2:sqlbrite:2.0.0') {
@@ -168,6 +179,17 @@ dependencies {
     testCompile "org.hamcrest:hamcrest-library:$HAMCREST_VERSION"
     testCompile "org.hamcrest:hamcrest-integration:$HAMCREST_VERSION"
     testCompile 'org.robolectric:robolectric:3.3'
+}
+
+configurations.all {
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        def requested = details.requested
+        if (requested.group == 'com.android.support') {
+            if (!requested.name.startsWith("multidex")) {
+                details.useVersion '25.3.0'
+            }
+        }
+    }
 }
 
 // Log out test results to console

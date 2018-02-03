@@ -60,14 +60,19 @@
 # Gson rules
 -keepattributes Signature
 -keep class sun.misc.Unsafe { *; }
-# TODO change to match your package model
+
 # Keep non static or private fields of models so Gson can find their names
--keepclassmembers class uk.co.ribot.androidboilerplate.data.model.** {
-    !static !private <fields>;
+# TODO change to match your package model
+-keep class com.agarwal.ashish.qna.room.entities.** {
+    public protected private *;
 }
+-keep class com.agarwal.ashish.qna.room.model.** {
+    public protected private *;
+}
+
 # TODO change to match your Retrofit services (only if using inner models withing the service)
 # Some models used by gson are inner classes inside the retrofit service
--keepclassmembers class uk.co.ribot.androidboilerplate.data.remote.RibotsService$** {
+-keepclassmembers class com.agarwal.ashish.qna.data.remote.RibotsService$** {
     !static !private <fields>;
 }
 

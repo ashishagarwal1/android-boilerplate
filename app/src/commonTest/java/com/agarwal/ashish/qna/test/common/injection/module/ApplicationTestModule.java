@@ -10,6 +10,7 @@ import dagger.Provides;
 import com.agarwal.ashish.qna.data.DataManager;
 import com.agarwal.ashish.qna.data.remote.RibotsService;
 import com.agarwal.ashish.qna.injection.ApplicationContext;
+import com.agarwal.ashish.qna.room.database.AppDatabase;
 
 import static org.mockito.Mockito.mock;
 
@@ -51,4 +52,9 @@ public class ApplicationTestModule {
         return mock(RibotsService.class);
     }
 
+    @Provides
+    @Singleton
+    AppDatabase provideDatabase() {
+        return AppDatabase.getAppDatabase(mApplication);
+    }
 }
