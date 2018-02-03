@@ -24,89 +24,94 @@ public class RibotProfile implements Comparable<RibotProfile> {
     @PrimaryKey
     @ColumnInfo(name = RivotDbConstants.COLUMN_EMAIL)
     @NonNull
-    private String email;
+    @SerializedName("email")
+    private String mEmail;
 
     @ColumnInfo(name = RivotDbConstants.COLUMN_NAME)
     @TypeConverters({RibotNameTypeConverter.class})
-    private RibotName name;
+    @SerializedName("name")
+    private RibotName mName;
 
     @ColumnInfo(name = RivotDbConstants.COLUMN_HEX_COLOR)
     @NonNull
-    private String hexColor;
+    @SerializedName("hexColor")
+    private String mHexColor;
 
     @ColumnInfo(name = RivotDbConstants.COLUMN_DATE_OF_BIRTH)
     @NonNull
     @SerializedName("dateOfBirth")
     @TypeConverters({DateTypeConverter.class})
-    private Date dob;
+    private Date mDob;
 
     @ColumnInfo(name = RivotDbConstants.COLUMN_AVATAR)
-    private String avatar;
+    @SerializedName("avatar")
+    private String mAvatar;
 
     @ColumnInfo(name = RivotDbConstants.COLUMN_BIO)
-    private String bio;
+    @SerializedName("bio")
+    private String mBio;
 
     public String getEmail() {
-        return email;
+        return mEmail;
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.mEmail = email;
     }
 
     public RibotName getName() {
-        return name;
+        return mName;
     }
 
     public void setName(RibotName name) {
-        this.name = name;
+        this.mName = name;
     }
 
     @NonNull
     public String getHexColor() {
-        return hexColor;
+        return mHexColor;
     }
 
     public void setHexColor(@NonNull String hexColor) {
-        this.hexColor = hexColor;
+        this.mHexColor = hexColor;
     }
 
     @NonNull
     public Date getDob() {
-        return dob;
+        return mDob;
     }
 
     public void setDob(@NonNull Date dob) {
-        this.dob = dob;
+        this.mDob = dob;
     }
 
     public String getAvatar() {
-        return avatar;
+        return mAvatar;
     }
 
     public void setAvatar(String avatar) {
-        this.avatar = avatar;
+        this.mAvatar = avatar;
     }
 
     public String getBio() {
-        return bio;
+        return mBio;
     }
 
     public void setBio(String bio) {
-        this.bio = bio;
+        this.mBio = bio;
     }
 
     @Override
     public int compareTo(@NonNull RibotProfile another) {
-        return name.getFirst().compareToIgnoreCase(another.getName().getFirst());
+        return mName.getFirst().compareToIgnoreCase(another.getName().getFirst());
     }
 
     @Override
     public boolean equals(Object other) {
         if (!(other instanceof RibotProfile)) return false;
         RibotProfile o = (RibotProfile) other;
-        return isEqulas(email, o.getEmail()) &&
-                isEqulas(name.getFirst(), o.getName().getFirst());
+        return isEqulas(mEmail, o.getEmail()) &&
+                isEqulas(mName.getFirst(), o.getName().getFirst());
     }
 
     private boolean isEqulas(String a, String b) {

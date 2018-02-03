@@ -4,7 +4,7 @@
     package="com.agarwal.ashish.qna">
 
     <application
-        android:name=".QnaDbAccessApplication"
+        android:name="com.agarwal.ashish.qna.QnaDbAccessApplication"
         tools:replace="android:name">
         <meta-data
             android:name="com.agarwal.ashish.qna.StethoOkHttpGlideModule"

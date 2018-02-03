@@ -10,13 +10,13 @@ import com.google.gson.annotations.SerializedName;
 public class Ribot {
 
     @SerializedName("profile")
-    private RibotProfile ribotProfile;
+    private RibotProfile mRibotProfile;
 
     public RibotProfile getRibotProfile() {
-        return ribotProfile;
+        return mRibotProfile;
     }
 
     public void setRibotProfile(RibotProfile ribotProfile) {
-        this.ribotProfile = ribotProfile;
+        this.mRibotProfile = ribotProfile;
     }
 }

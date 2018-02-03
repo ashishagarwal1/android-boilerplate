@@ -1,28 +1,32 @@
 package com.agarwal.ashish.qna.room.model;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by ashishaggarwal on 31/01/18.
  */
 
 public class RibotName {
 
-    private String first;
+    @SerializedName("first")
+    private String mFirst;
 
-    private String last;
+    @SerializedName("last")
+    private String mLast;
 
     public String getFirst() {
-        return first;
+        return mFirst;
     }
 
     public String getLast() {
-        return last;
+        return mLast;
     }
 
     public void setLast(String last) {
-        this.last = last;
+        this.mLast = last;
     }
 
     public void setFirst(String first) {
-        this.first = first;
+        this.mFirst = first;
     }
 }

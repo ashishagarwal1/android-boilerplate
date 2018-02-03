@@ -17,24 +17,26 @@ import javax.inject.Singleton;
  * Created by ashishaggarwal on 29/01/18.
  */
 
-@Database(entities = {RibotProfile.class}, version = 1)
+@Database(entities = {RibotProfile.class}, version = 1, exportSchema = false)
 @TypeConverters({RibotNameTypeConverter.class, DateTypeConverter.class})
 @Singleton
 public abstract class AppDatabase extends RoomDatabase {
 
-    private static AppDatabase INSTANCE;
+    private static AppDatabase database;
 
     public abstract RibotDao ribotDao();
 
     public static AppDatabase getAppDatabase(Context context) {
-        if (INSTANCE == null) {
-            INSTANCE =
-                    Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, "user-database")
-                            // allow queries on the main thread.
-                            // Don't do this on a real app! See PersistenceBasicSample for an example.
-                            .allowMainThreadQueries()
-                            .build();
+        if (database == null) {
+            database = Room
+                    .databaseBuilder(context.getApplicationContext()
+                            , AppDatabase.class, "user-database")
+                    // allow queries on the main thread.
+                    // Don't do this on a real app!
+                    // See PersistenceBasicSample for an example.
+                    .allowMainThreadQueries()
+                    .build();
         }
-        return INSTANCE;
+        return database;
     }
 }

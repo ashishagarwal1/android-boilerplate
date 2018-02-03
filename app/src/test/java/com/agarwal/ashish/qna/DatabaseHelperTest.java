@@ -38,10 +38,10 @@ public class DatabaseHelperTest {
 
     @Before
     public void setup() {
-        if (mDatabaseHelper == null)
-        {   mDb = AppDatabase.getAppDatabase(RuntimeEnvironment.application);
+        if (mDatabaseHelper == null) {
+            mDb = AppDatabase.getAppDatabase(RuntimeEnvironment.application);
             mDatabaseHelper = new DatabaseHelper(mDb);
-    }
+        }
     }
 
     @Test
@@ -78,7 +78,7 @@ public class DatabaseHelperTest {
     @After
     public void finishComponentTesting() {
         // sInstance is the static variable name which holds the singleton instance
-        resetSingleton(AppDatabase.class, "INSTANCE");
+        resetSingleton(AppDatabase.class, "database");
     }
 
     private void resetSingleton(Class clazz, String fieldName) {
