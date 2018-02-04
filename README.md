@@ -1,6 +1,8 @@
 # Android Boilerplate
 
-Sample Android app that we use at [ribot](http://ribot.co.uk) as a reference for new Android projects. It demonstrates the architecture, tools and guidelines that we use when developing for the Android platform (https://github.com/ribot/android-guidelines)
+This Project is forked from [ribot's android-boilerplate](https://github.com/ribot/android-boilerplate)
+
+It demonstrates the architecture, tools and guidelines that we can use for developing our new Android Project. 
 
 Libraries and tools included:
 
@@ -9,11 +11,11 @@ Libraries and tools included:
 - [RxJava](https://github.com/ReactiveX/RxJava) and [RxAndroid](https://github.com/ReactiveX/RxAndroid) 
 - [Retrofit 2](http://square.github.io/retrofit/)
 - [Dagger 2](http://google.github.io/dagger/)
-- [SqlBrite](https://github.com/square/sqlbrite)
 - [Butterknife](https://github.com/JakeWharton/butterknife)
 - [Timber](https://github.com/JakeWharton/timber)
 - [Glide](https://github.com/bumptech/glide)
-- [AutoValue](https://github.com/google/auto/tree/master/value) with extensions [AutoValueParcel](https://github.com/rharter/auto-value-parcel) and [AutoValueGson](https://github.com/rharter/auto-value-gson)
+- [Room] (https://developer.android.com/topic/libraries/architecture/room.html)
+- [stetho] (http://facebook.github.io/stetho/)
 - Functional tests with [Espresso](https://google.github.io/android-testing-support-library/docs/espresso/index.html)
 - [Robolectric](http://robolectric.org/)
 - [Mockito](http://mockito.org/)
@@ -29,7 +31,7 @@ Libraries and tools included:
 
 ## Architecture
 
-This project follows ribot's Android architecture guidelines that are based on [MVP (Model View Presenter)](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93presenter). Read more about them [here](https://github.com/ribot/android-guidelines/blob/master/architecture_guidelines/android_architecture.md). 
+This project follows Android architecture guidelines that are based on [MVP (Model View Presenter)](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93presenter) 
 
 ![](https://github.com/ribot/android-guidelines/raw/master/architecture_guidelines/architecture_diagram.png)
 
@@ -141,6 +143,7 @@ To quickly start a new project from this boilerplate follow the next steps:
 * Update `proguard-rules.pro` to keep models (see TODO in file) and add extra rules to file if needed.
 * Update README with information relevant to the new project.
 * Update LICENSE to match the requirements of the new project.
+* To inspect app calls, db etc. create build with dbAccess flavour. To read more how to view. Click on this [link](http://facebook.github.io/stetho/)
 
 ## License
 
