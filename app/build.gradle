@@ -67,6 +67,11 @@ android {
 
     sourceSets {
         def commonTestDir = 'src/commonTest/java'
+
+        release{
+            java.srcDirs = ['src/debug/java']
+        }
+
         test {
             java.srcDir commonTestDir
         }

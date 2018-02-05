@@ -19,7 +19,9 @@
 # ButterKnife rules
 -keep class butterknife.** { *; }
 -dontwarn butterknife.internal.**
+-dontwarn javax.annotation.**
 -keep class **$$ViewBinder { *; }
+-keep public class * implements com.bumptech.glide.module.GlideModule
 
 -keepclasseswithmembernames class * {
     @butterknife.* <fields>;
