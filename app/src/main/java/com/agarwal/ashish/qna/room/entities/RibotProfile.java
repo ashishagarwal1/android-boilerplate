@@ -114,6 +114,12 @@ public class RibotProfile implements Comparable<RibotProfile> {
                 isEqulas(mName.getFirst(), o.getName().getFirst());
     }
 
+    @Override
+    public int hashCode() {
+        return 7 * mName.hashCode() +
+                13 * mEmail.hashCode();
+    }
+
     private boolean isEqulas(String a, String b) {
         if (a == null && b == null)
             return true;
