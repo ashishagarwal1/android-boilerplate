@@ -4,7 +4,6 @@ import android.arch.persistence.room.Room;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.agarwal.ashish.qna.data.local.DatabaseHelper;
 import com.agarwal.ashish.qna.room.database.AppDatabase;
 import com.agarwal.ashish.qna.room.entities.RibotProfile;
 import com.agarwal.ashish.qna.test.common.TestDataFactory;
@@ -18,7 +17,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import io.reactivex.observers.TestObserver;
 
 import static junit.framework.Assert.assertEquals;
 

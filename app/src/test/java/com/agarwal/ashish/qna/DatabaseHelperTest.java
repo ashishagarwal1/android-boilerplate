@@ -1,27 +1,30 @@
 package com.agarwal.ashish.qna;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.robolectric.RobolectricTestRunner;
-import org.robolectric.RuntimeEnvironment;
-import org.robolectric.annotation.Config;
-
-import java.lang.reflect.Field;
-import java.util.Arrays;
-import java.util.List;
-
-import io.reactivex.observers.TestObserver;
 import com.agarwal.ashish.qna.data.local.DatabaseHelper;
+import com.agarwal.ashish.qna.room.dao.RibotDao;
 import com.agarwal.ashish.qna.room.database.AppDatabase;
 import com.agarwal.ashish.qna.room.entities.RibotProfile;
 import com.agarwal.ashish.qna.test.common.TestDataFactory;
 import com.agarwal.ashish.qna.util.DefaultConfig;
 import com.agarwal.ashish.qna.util.RxSchedulersOverrideRule;
 
-import static junit.framework.Assert.assertEquals;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
+import org.robolectric.shadows.ShadowLog;
+
+import java.util.Arrays;
+import java.util.List;
+
+import io.reactivex.observers.TestObserver;
+
+import static org.mockito.Mockito.when;
+
 
 /**
  * Unit tests integration with a SQLite Database using Robolectric
@@ -34,30 +37,30 @@ public class DatabaseHelperTest {
     public final RxSchedulersOverrideRule mOverrideSchedulersRule = new RxSchedulersOverrideRule();
 
     private DatabaseHelper mDatabaseHelper;
-    private AppDatabase mDb;
+
+    @Mock
+    public AppDatabase mDb;
+
+    @Mock
+    public RibotDao ribotDao;
 
     @Before
     public void setup() {
-        if (mDatabaseHelper == null) {
-            mDb = AppDatabase.getAppDatabase(RuntimeEnvironment.application);
-            mDatabaseHelper = new DatabaseHelper(mDb);
-        }
+        MockitoAnnotations.initMocks(this);
+        ShadowLog.stream = System.out;
+        mDatabaseHelper = new DatabaseHelper(mDb);
+
     }
 
     @Test
     public void setRibots() {
-
-
         RibotProfile ribotProfile1 = TestDataFactory.makeRibot("r1");
         RibotProfile ribotProfile2 = TestDataFactory.makeRibot("r2");
         List<RibotProfile> ribotProfiles = Arrays.asList(ribotProfile1, ribotProfile2);
+        when(mDb.ribotDao()).thenReturn(ribotDao);
         TestObserver<RibotProfile> result = new TestObserver<>();
         mDatabaseHelper.setRibots(ribotProfiles).subscribe(result);
         result.assertNoErrors();
-        TestObserver<List<RibotProfile>> newResult = new TestObserver<>();
-        mDatabaseHelper.getRibots().subscribe(newResult);
-        assertEquals(2, newResult.values().get(0).size());
-        newResult.assertValue(ribotProfiles);
     }
 
     @Test
@@ -65,30 +68,23 @@ public class DatabaseHelperTest {
         RibotProfile ribotProfile1 = TestDataFactory.makeRibot("r1");
         RibotProfile ribotProfile2 = TestDataFactory.makeRibot("r2");
         List<RibotProfile> ribotProfiles = Arrays.asList(ribotProfile1, ribotProfile2);
-
-        mDatabaseHelper.setRibots(ribotProfiles).subscribe();
-
+        when(mDb.ribotDao()).thenReturn(ribotDao);
+        when(ribotDao.getRibots()).thenReturn(ribotProfiles);
         TestObserver<List<RibotProfile>> result = new TestObserver<>();
         mDatabaseHelper.getRibots().subscribe(result);
         result.assertNoErrors();
         result.assertValue(ribotProfiles);
     }
 
+//    private void resetSingleton(Class clazz, String fieldName) {
+//        Field instance;
+//        try {
+//            instance = clazz.getDeclaredField(fieldName);
+//            instance.setAccessible(true);
+//            instance.set(null, null);
+//        } catch (Exception e) {
+//            throw new RuntimeException();
+//        }
+//    }
 
-    @After
-    public void finishComponentTesting() {
-        // sInstance is the static variable name which holds the singleton instance
-        resetSingleton(AppDatabase.class, "database");
-    }
-
-    private void resetSingleton(Class clazz, String fieldName) {
-        Field instance;
-        try {
-            instance = clazz.getDeclaredField(fieldName);
-            instance.setAccessible(true);
-            instance.set(null, null);
-        } catch (Exception e) {
-            throw new RuntimeException();
-        }
-    }
 }
