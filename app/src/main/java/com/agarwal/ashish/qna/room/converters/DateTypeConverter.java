@@ -6,6 +6,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import timber.log.Timber;
 
@@ -17,18 +18,18 @@ public class DateTypeConverter {
 
     @TypeConverter
     public String fromDate(Date value) {
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.ENGLISH);
         return df.format(value);
     }
 
     @TypeConverter
     public Date toDate(String value) {
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.ENGLISH);
         try {
             Date today = df.parse(value);
             return today;
         } catch (ParseException e) {
-            Timber.e("toDate %s %s" , e, value);
+            Timber.e(e, "toDate %s", value);
         }
         return null;
     }

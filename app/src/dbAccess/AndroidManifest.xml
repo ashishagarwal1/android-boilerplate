@@ -12,9 +12,4 @@
 
     </application>
 
-    <!-- Used by instrumentation tests only. Do not include in live build ! -->
-    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.READ_LOGS" />
-
 </manifest>
