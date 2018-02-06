@@ -1,8 +1,9 @@
-package com.agarwal.ashish.qna;
+package com.agarwal.ashish.qna.ui.main;
 
 import android.content.Intent;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.contrib.RecyclerViewActions;
+import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
@@ -16,6 +17,7 @@ import java.util.List;
 
 import io.reactivex.Observable;
 
+import com.agarwal.ashish.qna.R;
 import com.agarwal.ashish.qna.room.entities.RibotProfile;
 import com.agarwal.ashish.qna.test.common.TestComponentRule;
 import com.agarwal.ashish.qna.test.common.TestDataFactory;
@@ -60,7 +62,7 @@ public class MainActivityTest {
 
         int position = 0;
         for (RibotProfile ribotProfile : testDataRibotProfiles) {
-            onView(withId(R.id.recycler_view))
+            onView(ViewMatchers.withId(R.id.recycler_view))
                     .perform(RecyclerViewActions.scrollToPosition(position));
             String name = String.format("%s %s", ribotProfile.getName().getFirst(),
                     ribotProfile.getName().getLast());
