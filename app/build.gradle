@@ -29,7 +29,9 @@ android {
             }
         }
     }
-
+    lintOptions {
+        disable "UnusedResources", "ObsoleteLintCustomCheck", "BatteryLife"
+    }
     signingConfigs {
         // You must set up an environment var before release signing
         // Run: export APP_KEY={password}
