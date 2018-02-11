@@ -1,14 +1,9 @@
 package com.agarwal.ashish.qna.jobscheduler.jobs;
 
-import android.os.Build;
-import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
-import android.util.Log;
 
 import com.evernote.android.job.Job;
 import com.evernote.android.job.JobRequest;
-import com.evernote.android.job.util.support.PersistableBundleCompat;
 
 /**
  * Created by ashishaggarwal on 11/02/18.

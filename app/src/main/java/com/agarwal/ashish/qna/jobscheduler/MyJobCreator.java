@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import com.agarwal.ashish.qna.jobscheduler.jobs.DemoSyncJob;
 import com.evernote.android.job.Job;
 import com.evernote.android.job.JobCreator;
-import com.evernote.android.job.JobManager;
 
 /**
  * Created by ashishaggarwal on 11/02/18.

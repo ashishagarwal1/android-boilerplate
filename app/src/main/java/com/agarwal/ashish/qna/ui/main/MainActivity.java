@@ -5,8 +5,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.widget.Toast;
+
+import com.agarwal.ashish.qna.R;
+import com.agarwal.ashish.qna.data.SyncService;
+import com.agarwal.ashish.qna.room.entities.RibotProfile;
+import com.agarwal.ashish.qna.ui.base.BaseActivity;
+import com.agarwal.ashish.qna.util.DialogFactory;
 
 import java.util.Collections;
 import java.util.List;
@@ -15,12 +20,6 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.agarwal.ashish.qna.R;
-import com.agarwal.ashish.qna.data.SyncService;
-import com.agarwal.ashish.qna.jobscheduler.jobs.DemoSyncJob;
-import com.agarwal.ashish.qna.room.entities.RibotProfile;
-import com.agarwal.ashish.qna.ui.base.BaseActivity;
-import com.agarwal.ashish.qna.util.DialogFactory;
 
 public class MainActivity extends BaseActivity implements MainMvpView {
 
